@@ -140,3 +140,20 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 (hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'name': 'Fred the Frog', 'age': 9, 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
 ```
 <br>
+
+
+# <center> <h1>AirBnB clone - MySQL</h1></center>
+
+This is the version 2 of this project.
+Unlike the version 1 that made use of file system in management of data,version 2 is making use of database - mysql. We used SQLAlchemy's power of Object Relational Mapping to implement CRUD operations in mysql using python codes.
+
+---
+
+### Environment Variables
+We used environment variables to manage different credentials used in the in the project
+- ```HBNB_ENV```: running environment. It can be “dev” or “test” for the moment (“production” soon!)
+- ```HBNB_MYSQL_USER```: the username of your MySQL
+- ```HBNB_MYSQL_PWD```: the password of your MySQL
+- ```HBNB_MYSQL_HOST```: the hostname of your MySQL
+- ```HBNB_MYSQL_DB```: the database name of your MySQL
+- ```HBNB_TYPE_STORAGE```: the type of storage used. It can be “file” (using ```FileStorage```) or ```db``` (using ```DBStorage```)
