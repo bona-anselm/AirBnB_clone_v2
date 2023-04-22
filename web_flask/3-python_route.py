@@ -19,13 +19,14 @@ def hbnb():
 
 @app.route('/c/<text>', strict_slashes=False)
 def c(text):
-    """Function called with /c/<text>"""
+    """Function called with /c/<text> route"""
     return 'C %s' % text.replace('_', ' ')
 
 
+@app.route('/python/', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python(text='is cool'):
-    """Function called with /pyhton/(<text>)"""
+    """Function called with /pyhton/<text> route"""
     if text != 'is cool':
         text = text.replace('_', ' ')
     return 'Python %s' % text
