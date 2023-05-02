@@ -13,7 +13,7 @@ class FileStorage:
         if cls is not None:
             return {key: val for key, val in self.__objects.items() if isinstance(val, cls)}
         else:
-            return self.__objects
+            return FileStorage.__objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -55,4 +55,7 @@ class FileStorage:
     def delete(self, obj=None):
         """Delete obj from __objects if it’s inside"""
         if obj is not None and obj.__class__.__name__ + '.' + obj.id in self.__objects:
-            del self.__objects[obj.__class__.__name__ + '.' + obj.id]
+            try:
+                del self.__objects[obj.__class__.__name__ + '.' + obj.id]
+            except Exception:
+                pass
