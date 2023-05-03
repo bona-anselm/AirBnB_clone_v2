@@ -32,4 +32,4 @@ class State(BaseModel, Base):
             print(city_list)
             return city_list
     else:
-        cities = relationship("City",  backref="state", cascade="delete")
+        cities = relationship("City", backref="state", cascade="delete")

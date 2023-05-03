@@ -2,7 +2,7 @@
 """ City Module for AirBNB project """
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, ForeignKey, String, DateTime
+from sqlalchemy import Column, ForeignKey, String
 
 
 class City(BaseModel, Base):

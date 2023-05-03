@@ -29,7 +29,7 @@ class BaseModel:
                 *args (any argument): Not used
                 **kwargs (dictionary): Attributes key-value pairs
         """
-        if (not kwargs or 'id' not in kwargs):
+        if not kwargs or 'updated_at' not in kwargs:
             from models import storage
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
@@ -53,7 +53,7 @@ class BaseModel:
     def save(self):
         """Updates updated_at with current time when instance is changed"""
         from models import storage
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.utcnow()
         storage.new(self)
         storage.save()
 

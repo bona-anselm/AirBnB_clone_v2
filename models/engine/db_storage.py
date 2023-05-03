@@ -40,9 +40,8 @@ class DBStorage:
         Return:
             Dict. of queried classes in the format <class name>.<obj id> = obj.
         """
-        if cls:
-            if type(cls) == str:
-                results = self.__session.query(eval(cls)).all()
+        if cls and type(cls) == str:
+            results = self.__session.query(eval(cls)).all()
         else:
             results = self.__session.query(State).all()
             results.extend(self.__session.query(City).all())

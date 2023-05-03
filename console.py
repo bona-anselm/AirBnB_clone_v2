@@ -37,7 +37,6 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
-
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
         """
@@ -114,24 +113,18 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ Create an object of any class with given parameters"""
+        """Create an object of any class"""
         if not args:
             print("** class name missing **")
             return
-
-        # Split the args (to access each parameters of create command)
-        args = args.split()
-
-        # Checks if the class whose object is to be created exists
-        if args[0] not in HBNBCommand.classes:
+        args_list = args.split()
+    
+        if args_list[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-
-        # iterate over the args, store them in dict stripping unwanted
-        # parts and passing unknown values
         kwargs = {}
-        for i in range(1, len(args)):
-            k, v = tuple(args[i].split("="))
+        for i in range(1, len(args_list)):
+            k, v = tuple(args_list[i].split('='))
             try:
                 if type(eval(v)) == str:
                     kwargs[k] = v.strip('"').replace('_', ' ')
@@ -139,17 +132,14 @@ class HBNBCommand(cmd.Cmd):
                     kwargs[k] = eval(v)
             except Exception:
                 pass
-
-        # Saves the class with the parameters it was created with
-        # and & prints the class id
-        new_instance = HBNBCommand.classes[args[0]](**kwargs)
-        storage.save()
+        new_instance = HBNBCommand.classes[args_list[0]](**kwargs)
         print(new_instance.id)
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
         print("Creates a class of any type")
-        print("[Usage]: create <className> <param 1> <param 2> <param 3>...\n")
+        print("[Usage]: create <className>\n")
 
     def do_show(self, args):
         """ Method to show an individual object """
@@ -175,7 +165,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key])
+            print(storage.all()[key])
         except KeyError:
             print("** no instance found **")
 
@@ -207,7 +197,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del (storage.all()[key])
+            del(storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -226,11 +216,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
@@ -243,7 +233,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """Count current number of class instances"""
         count = 0
-        for k, v in storage._FileStorage__objects.items():
+        for k, v in storage.all().items():
             if args == k.split('.')[0]:
                 count += 1
         print(count)
@@ -339,7 +329,6 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
-
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
