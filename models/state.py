@@ -2,8 +2,10 @@
 """ State Module for AirBnB project """
 from models.base_model import BaseModel, Base
 from os import getenv
-from sqlalchemy import Column, ForeignKey, String, Integer
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+import models
+from models import City
 
 
 class State(BaseModel, Base):
@@ -29,7 +31,7 @@ class State(BaseModel, Base):
             for city in list(models.storage.all(City).values()):
                 if city.state_id == self.id:
                     city_list.append(city)
-            print(city_list)
+
             return city_list
     else:
         cities = relationship("City", backref="state", cascade="delete")
